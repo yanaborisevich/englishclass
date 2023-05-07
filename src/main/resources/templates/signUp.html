@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Registration Page</title>
+
+  <style>
+    /* Global styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family:"JetBrains Mono", sans-serif;
+      font-size: 16px;
+      line-height: 1.4;
+
+    }
+
+    /* Header styles */
+    .header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    /* Form styles */
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: url("../../playground_assets/background_glaf.jpg") no-repeat;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      width: 80%;
+      max-width: 400px;
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"], input[type="email"], input[type="password"], input[type="submit"] {
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      padding: 10px;
+      width: 100%;
+    }
+
+    input[type="submit"] {
+      background-color: #333;
+      color: #fff;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #555;
+    }
+
+    /* Media queries */
+    @media only screen and (min-width: 768px) {
+      .header h1 {
+        font-size: 48px;
+      }
+
+      .form-container {
+        padding: 40px;
+      }
+
+      label {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      input[type="text"], input[type="email"], input[type="password"], input[type="submit"] {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<section class="form-container">
+
+  <form th:action="@{/signUp}" method="post">
+    <div th:text="${error}"></div>
+    <h1 style=" display: grid; justify-content: center;">Регистрация</h1>
+    <label for="firstname">Имя:</label>
+    <input type="text" id="firstname" name="firstname"  oninput="this.value = this.value.replace(/[0-9.]/g,'');" placeholder="Имя" required>
+
+    <label for="lastname">Фамилия:</label>
+    <input type="text" id="lastname" name="lastname" oninput="this.value = this.value.replace(/[0-9.]/g,'');" placeholder="Фамилия" required>
+
+    <h6 th:text="${valid}"></h6>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" placeholder="Email" minlength="8" maxlength="24" required>
+
+    <label for="password">Пароль:</label>
+    <input type="password" id="password" name="password" placeholder="Enter your password" minlength="12" maxlength="24" required>
+
+    <input type="submit" value="Регистрация">
+  </form>
+  <a style="color: white" th:href="@{/login}">Войти</a>
+</section>
+</body>
+</html>

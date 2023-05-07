@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile Page</title>
+  <script>
+    window.addEventListener("DOMContentLoaded", function() {
+      [].forEach.call( document.querySelectorAll('.tel'), function(input) {
+        var keyCode;
+        function mask(event) {
+          event.keyCode && (keyCode = event.keyCode);
+          var pos = this.selectionStart;
+          if (pos < 3) event.preventDefault();
+          var matrix = "+375-(__)-___-__-__",
+                  i = 0,
+                  def = matrix.replace(/\D/g, ""),
+                  val = this.value.replace(/\D/g, ""),
+                  new_value = matrix.replace(/[_\d]/g, function(a) {
+                    return i < val.length ? val.charAt(i++) || def.charAt(i) : a
+                  });
+          i = new_value.indexOf("_");
+          if (i != -1) {
+            i < 5 && (i = 3);
+            new_value = new_value.slice(0, i)
+          }
+          var reg = matrix.substr(0, this.value.length).replace(/_+/g,
+                  function(a) {
+                    return "\\d{1," + a.length + "}"
+                  }).replace(/[+()]/g, "\\$&");
+          reg = new RegExp("^" + reg + "$");
+          if (!reg.test(this.value) || this.value.length < 5 || keyCode > 47 && keyCode < 58) this.value = new_value;
+          if (event.type == "blur" && this.value.length < 5)  this.value = ""
+        }
+
+        input.addEventListener("input", mask, false);
+        input.addEventListener("focus", mask, false);
+        input.addEventListener("blur", mask, false);
+        input.addEventListener("keydown", mask, false)
+
+      });
+
+    });
+
+  </script>
+  <style>
+    /* Global styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "JetBrains Mono", sans-serif;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    /* Header styles */
+    .header {
+      display: flex;
+      background-color: white;
+      color: #000;
+      vertical-align: center;
+      text-align: center;
+      margin: 0 10%;
+    }
+
+    .header h1 {
+      font-size: 35px;
+      margin-bottom: 10px;
+      margin-left: 65%;
+      margin-top: 10px;
+
+    }
+
+    header input[type='button']{
+      width: 100%;
+      background-color: #2196F3;
+      padding: 20px;
+
+    }
+
+
+
+    /* Form styles */
+    .form-container {
+      max-width: 600px;
+      padding: 20px;
+      width: 50%;
+    }
+
+
+
+    .logout {
+      width: 20%;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"], input[type="email"], input[type="file"], input[type="button"] {
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      padding: 10px;
+      width: 100%;
+    }
+
+    input[type="submit"]{
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      padding: 10px;
+      width: 100%;
+      background: #0F73E9B8;
+    }
+
+    input[type="submit"], input[type="button"] {
+      background-color: #333;
+      color: #fff;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #555;
+    }
+
+
+
+    .profile-pic {
+      height: 240px;
+      width: 240px;
+    }
+
+
+    label {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"], input[type="email"], input[type="submit"], input[type="file"], input[type="button"] {
+      font-size: 20px;
+
+    }
+
+
+    input[type="button"], input[type="submit"] {
+      font-size: 20px;
+      background-color: #2196F3;
+    }
+
+
+
+    .input-form {
+      display: grid;
+    }
+
+
+
+    .button-form {
+      display: flex;
+    }
+
+    .form {
+      box-sizing: border-box;
+      margin: 0;
+      width: 100%;
+      background: white;
+      padding: 10px 10px;
+      border: 1px solid white;
+      border-radius: 20px;
+    }
+
+    .menu input[type='button']{
+      width: 49.5%;
+    }
+
+
+
+    .back{
+      background: white;
+    }
+
+    .container{
+      display: flex;
+      justify-content: center;
+      height: 80vh;
+      margin: 0 10%;
+      z-index: 1;
+
+    }
+
+    .each-form{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .each-form label{
+      margin-left: 0;
+      margin-right: 20%;
+      margin-bottom: 5%;
+      width: 10%;
+    }
+
+    .each-form input{
+      width: 80%;
+    }
+  </style>
+</head>
+<body>
+
+<div class="back">
+  <header class="header">
+    <a th:href="@{/}"><input type="button" value="Главная"></a>
+    <h1>Администратор</h1>
+  </header>
+  <h1 style="display: flex; justify-content: center; color: #2196F3;">С возвращением!</h1>
+  <div class="container">
+
+    <div class="form-container">
+      <h1>Мой профиль</h1>
+      <form class="form" th:action="@{/admin/update}" method="post" enctype="multipart/form-data">
+
+        <div class="input-form">
+          <div class="each-form">
+            <label for="firstname">Фамилия:</label>
+            <input type="text" id="firstname" name="lastname" oninput="this.value = this.value.replace(/[0-9.]/g,'');" placeholder="Фамилия"
+                   th:value="${user.getLastname()}">
+          </div>
+
+          <div class="each-form">
+            <label style="width: 11%" for="lastname">Имя:</label>
+            <input  type="text" id="lastname" name="firstname" oninput="this.value = this.value.replace(/[0-9.]/g,'');" placeholder="Имя"
+                    th:value="${user.getFirstname()}">
+          </div>
+
+          <div class="each-form">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" th:value="${user.getEmail()}"
+                   disabled>
+          </div>
+
+          <div class="each-form">
+            <label for="phone">Телефон:</label>
+            <input type="text" id="phone" name="phone" class="tel" placeholder="Телефон"
+                   th:value="${user.getPhone()}">
+          </div>
+
+        </div>
+        <div style="width: 50%; display: flex; justify-content: center; align-items: center; margin-left: 25%">
+          <input type="submit" value="Сохранить изменения">
+        </div>
+        <div class="menu">
+          <div class="menu-item">
+            <a th:href="@{/admin/users}"><input type="button" value="Просмотр пользователей"></a>
+            <a th:href="@{/admin/reviews}"><input type="button" value="Просмотр отзывов"></a>
+          </div>
+        </div>
+        <div sec:authorize="isAuthenticated()" class="text-center p-3">
+          <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Выйти" class="logout"/>
+          </form>
+
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

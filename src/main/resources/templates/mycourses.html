@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мои курсы</title>
+  <style>
+    /* Add general styles here */
+    * {
+      box-sizing: border-box;
+    }
+
+    input[type="button"] {
+      background-color: #333;
+      color: #fff;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    body {
+      margin: 0;
+      font-family: "JetBrains Mono", sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #2196F3;
+      color: white;
+    }
+
+    td:last-child {
+      text-align: center;
+    }
+
+    td:last-child button {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+      background-color: #4CAF50;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    td:last-child button.edit {
+      background-color: #2196F3;
+    }
+
+    td:last-child button:hover {
+      opacity: 0.8;
+    }
+
+    td input[type='submit']{
+      width: 30%;
+    }
+
+
+    .search-contain {
+      margin-bottom: 3%;
+      display: flex;
+      justify-content: left;
+      margin-top: 5%;
+      width: 100%;
+    }
+
+    .search-contain button[type='submit'] {
+      color: #fff;
+      background-color: #2196F3;
+      cursor: pointer;
+
+      text-decoration: none;
+      list-style-type: none;
+      font-size: 16px;
+      padding: 10px 10px;
+      width: 15%;
+    }
+
+    /* Header styles */
+    .header {
+      display: flex;
+      background-color: white;
+      color: #000;
+      vertical-align: center;
+      text-align: center;
+      margin: 0 10%;
+
+    }
+
+    .header h1 {
+      font-size: 35px;
+      margin-bottom: 10px;
+      margin-left: 67%;
+      margin-top: 15px;
+      font-weight: bold;
+
+    }
+
+    header input[type='button']{
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 20px;
+      width: 100%;
+      background-color: #2196F3;
+      padding: 20px;
+
+    }
+
+    .back{
+      display: flex;
+      justify-content: center;
+    }
+
+    .back input[type='button']{
+      border: none;
+      background-color: #2196F3;
+      padding: 10px 20px;
+    }
+  </style>
+</head>
+<body>
+<h1>Мои курсы</h1>
+<table>
+  <thead>
+  <tr>
+    <th>№</th>
+    <th>Тип</th>
+    <th>Описание</th>
+    <th>Начало</th>
+    <th>Окончание</th>
+    <th>Цена</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="course:${courses}">
+    <td><span th:text="${course.getId()}"></span></td>
+    <td><span th:text="${course.getName()}"></span></td>
+    <td><span th:text="${course.getDescription()}"></span></td>
+    <td><span th:text="${course.getDateStart()}"></span></td>
+    <td><span th:text="${course.getDateOver()}"></span></td>
+    <td><span th:text="${course.getPrice()}"></span></td>
+
+  </tr>
+  <!-- Add more rows here -->
+  </tbody>
+</table>
+<a th:href="@{/user/personal}"><input type="button" value="Назад"></a>
+</body>
+</html>

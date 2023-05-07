@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Школа английского языка</title>
+    <style>
+        body{
+            margin: 0;
+            font-family:"JetBrains Mono", sans-serif;
+        }
+
+        main{
+            display: inline-flex;
+        }
+
+        li{
+            list-style-type: none;
+        }
+
+        a{
+            padding: 10px 20px;
+            border-radius: 20px;
+            color: #fff;
+            background-color: #252525;
+            text-decoration: none;
+        }
+
+        .profile-pic {
+            border-radius: 50%;
+            height: 400px;
+            width: 400px;
+            padding: 80px;
+        }
+            /* стили для мобильных устройств */
+        @media only screen and (max-width: 600px) {
+            /* заголовок и навигация */
+            header {
+                background-color: #252525;
+                padding: 10px;
+                text-align: center;
+            }
+            h1 {
+                color: #fff;
+                font-size: 28px;
+                margin: 0;
+            }
+            nav ul {
+                display: none;
+            }
+            nav.open ul {
+                display: block;
+                margin: 0;
+                padding: 0;
+                text-align: center;
+            }
+            nav.open li {
+                display: block;
+                padding: 10px;
+                border-bottom: 1px solid #fff;
+            }
+            nav.open li:last-child {
+                border-bottom: none;
+            }
+            nav a {
+                color: #fff;
+                font-size: 20px;
+                text-decoration: none;
+                display: block;
+            }
+
+            /* секции */
+            section {
+                padding: 20px;
+            }
+            .profile-pic{display: none}
+            h2 {
+                font-size: 24px;
+                margin: 0 0 10px;
+            }
+            ul {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+            li {
+                font-size: 18px;
+                line-height: 1.5;
+                margin-bottom: 10px;
+                padding-left: 20px;
+                position: relative;
+            }
+            li:before {
+                content: "•";
+                color: #8e8e8e;
+                font-size: 12px;
+                left: 0;
+                position: absolute;
+                top: 6px;
+            }
+        }
+
+        /* стили для планшетов */
+        @media only screen and (min-width: 601px) and (max-width: 960px) {
+            /* заголовок и навигация */
+            header {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 36px;
+            }
+            nav ul {
+                display: block;
+                margin: 0;
+                padding: 0;
+                text-align: center;
+            }
+            nav li {
+                display: inline-block;
+                padding: 10px 20px;
+                border-bottom: none;
+            }
+
+            /* секции */
+            section {
+                padding: 40px;
+
+            }
+
+            .profile-pic{display: none}
+            h2 {
+                font-size: 36px;
+            }
+            li {
+                font-size: 24px;
+                line-height: 1.5;
+                margin-bottom: 20px;
+                padding-left: 30px;
+                position: relative;
+            }
+            li:before {
+                font-size: 18px;
+                top: 8px;
+            }
+        }
+
+        /* стили для настольных компьютеров */
+        @media only screen and (min-width: 961px) {
+            /* заголовок и навигация */
+            header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px 50px;
+            }
+
+            h1 {
+                font-size: 48px;
+            }
+
+            nav ul {
+                display: flex;
+                align-items: center;
+            }
+
+            nav li {
+                margin-left: 30px;
+                border-bottom: none;
+            }
+
+            nav a {
+                font-size: 20px;
+                padding: 10px 20px;
+                border-radius: 20px;
+                color: #fff;
+                background-color: #252525;
+                text-decoration: none;
+            }
+
+            nav a:hover {
+                background-color: #555;
+            }
+
+            /* секции */
+            section {
+                padding: 10px 80px 10px 80px;
+            }
+
+            h2 {
+                font-size: 48px;
+            }
+
+            li {
+                font-size: 36px;
+                margin-bottom: 30px;
+                padding-left: 40px;
+            }
+
+            li:before {
+                font-size: 24px;
+                top: 10px;
+            }
+
+            /* подвал */
+            footer {
+                background-color: #252525;
+                color: #fff;
+                text-align: center;
+                padding: 15px;
+            }
+            .right{
+
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Школа инностранных языков</h1>
+
+    <nav>
+        <ul>
+            <li><a th:href="@{/login}">Войти</a></li>
+        </ul>
+    </nav>
+</header>
+<hr>
+
+<main style="
+    display: inline-flex;
+">
+    <section>
+        <h2>Наши курсы</h2>
+        <p>Мы предлагаем курсы для всех возрастов и уровней знания английского языка:</p>
+        <ul>
+            <li>Начинающий</li>
+            <li>Средний уровень</li>
+            <li>Продвинутые</li>
+            <li><a href="/user/course">Выбрать</a></li>
+        </ul>
+
+    </section>
+    <section class="right">
+        <img src="../../playground_assets/img_1.png" class="profile-pic">
+    </section>
+</main>
+
+<footer>
+    <p>© Школа инностранных языков, 2023</p>
+</footer>
+
+</body><div id="sm-wrapper"></div></html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выбор курса</title>
+    <style>
+        body {
+            font-family:"JetBrains Mono", sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url("../../playground_assets/back-flag.png") no-repeat;
+            color: white;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 0;
+
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        label {
+            font-size: 18px;
+            display: block;
+            margin-bottom: 10px;
+        }
+        select {
+            font-size: 18px;
+            padding: 10px 15px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .course-description {
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .course-description p {
+            margin-bottom: 10px;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #3e8e41;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 10px;
+            }
+            h1 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+            label, select, .course-description, button {
+                font-size: 16px;
+            }
+        }
+    </style>
+    <script>
+        function showDescription() {
+            var selectBox = document.getElementById("course-select");
+            var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+
+            if (selectedValue === "beginner") {
+                document.getElementById("beginner").style.display = "block";
+                document.getElementById("intermediate").style.display = "none";
+                document.getElementById("advanced").style.display = "none";
+            } else if (selectedValue === "intermediate") {
+                document.getElementById("beginner").style.display = "none";
+                document.getElementById("intermediate").style.display = "block";
+                document.getElementById("advanced").style.display = "none";
+            } else if (selectedValue === "advanced") {
+                document.getElementById("beginner").style.display = "none";
+                document.getElementById("intermediate").style.display = "none";
+                document.getElementById("advanced").style.display = "block";
+            } else {
+                document.getElementById("beginner").style.display = "none";
+                document.getElementById("intermediate").style.display = "none";
+                document.getElementById("advanced").style.display = "none";
+            }
+        }
+    </script>
+</head>
+
+<body>
+<div class="container">
+    <h1>Выбор курса</h1>
+
+    <label for="course-select">Выберите курс:</label>
+
+    <select id="course-select" onchange="showDescription()" >
+        <option value="">--Выберите курс--</option>
+        <option th:each="course:${courses}" th:value="${course.getValue()}" th:text="${course.getName()}"></option>
+
+    </select>
+
+    <form th:action="@{/user/course}" method="post" th:each="course:${courses}">
+        <div th:id="${course.getValue()}" th:name="${course.getName()}" class="course-description" style="display:none;">
+
+            <p><strong>Краткое описание курса:</strong><div th:text="${course.getDescription()}"></div></p>
+            <p><strong>Дата начала:</strong>  <div th:text="${course.getDateStart()}"></div></p>
+            <p><strong>Дата окончания</strong> <div th:text="${course.getDateOver()}"></div></p>
+            <p><strong>Цена, BYN</strong> <div th:text="${course.getPrice()}"></div></p>
+            <input type="text"  name="name" th:value="${course.getName()}" style="visibility: hidden">
+            <button type="submit">Зарегистрироваться</button>
+        </div>
+    </form>
+
+
+</div>
+</body>
+</html>
